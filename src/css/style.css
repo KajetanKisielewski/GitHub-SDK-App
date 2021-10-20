@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+
+    --color-alfa: rgba(9, 66, 82, 0.5);
+    --color-beta: rgba(255, 255, 255, 1);
+    --color-gamma: rgba(14, 122, 151, 0.7);
+}
+
+.wrap {
+    max-width: 1920px;
+}
+
+
+
+/* LOGIN PANEL SEKCJA */
+
+
+.login__panel {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-alfa);
+}
+
+.login__panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(./../img/loginPanel.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.panel__header {
+    text-align: center;
+    color: var(--color-beta);
+}
+
+.header__title {
+    font-size: 4rem;
+    padding-top: 10rem;
+}
+
+.header__description {
+    font-size: 2rem;
+    padding-top: 2rem;
+}
+
+.panel__form {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    padding: 5rem;
+}
+
+.form__field {
+    width: 100%;
+    color: var(--color-beta);
+}
+
+.form__field--login,
+.form__field--password {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.form__field--input {
+    display: flex;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.form__field--submit {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 4rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    background-color: var(--color-alfa);
+    color: var(--color-beta);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.form__field--submit::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(-60%, -100%) rotate(-45deg);
+    background-color: var(--color-gamma);
+    transition: 0.5s linear;
+}
+
+.form__field--submit:hover::after {
+    transform: translate(60%, 100%) rotate(-45deg);
+}
