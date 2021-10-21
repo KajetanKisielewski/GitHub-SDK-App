@@ -19,7 +19,7 @@
 
 
 
-/* LOGIN PANEL SEKCJA */
+/* LOGIN PANEL SECTION */
 
 
 .login__panel {
@@ -117,4 +117,16 @@
 
 .form__field--submit:hover::after {
     transform: translate(60%, 100%) rotate(-45deg);
+}
+
+
+
+/* USER PANEL SECTION */
+
+.user__panel {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: violet;
 }

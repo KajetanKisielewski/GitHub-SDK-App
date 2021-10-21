@@ -1,15 +1,10 @@
 export default class GitHubSDK {
     constructor(loginData) {
         this.url = 'https://api.github.com/';
-        // this.user = user;
-        // this.token = token;
-        this.loginData = loginData.getUserData();
-    }
 
-    show() {
-        console.log(this.loginData)
+        this.user = loginData.login;
+        this.token = loginData.password;
     }
-
 
     getUserData() {
 
