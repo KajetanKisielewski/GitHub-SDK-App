@@ -11,6 +11,7 @@
     --color-alfa: rgba(9, 66, 82, 0.5);
     --color-beta: rgba(255, 255, 255, 1);
     --color-gamma: rgba(14, 122, 151, 0.7);
+    --color-userPanel: linear-gradient(to right bottom, #163b80, #004888, #00558e, #006192, #006c95, #006c95, #006c95, #006c95, #006192, #00558e, #004888, #163b80);
 }
 
 .wrap {
@@ -124,9 +125,135 @@
 /* USER PANEL SECTION */
 
 .user__panel {
-    display: none;
-    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100vh;
+    background-image: var(--color-userPanel);
+}
+
+.user__panel--header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    background-color: var(--color-alfa);
+}
+
+.user__panel--title {
+    font-size: 2rem;
+    padding: 2rem 2rem;
+    color: var(--color-beta);
+}
+
+
+.user__panel---signOut {
+    position: relative;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    height: 50%;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: var(--color-beta);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.user__panel---signOut::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(-60%, -100%) rotate(-45deg);
+    background-color: var(--color-gamma);
+    transition: 0.5s linear;
+}
+
+.user__panel---signOut:hover::after {
+    transform: translate(60%, 100%) rotate(-45deg);
+}
+
+.user__panel--main {
+    display: flex;
+    background-color: white;
+}
+
+.user__panel--main>* {
+    flex-basis: 0;
+}
+
+.user__profile--information {
+    flex-grow: 2;
+    background-color: red;
+}
+
+.user__panel--photo {
+    display: flex;
+    justify-content: center;
     background-color: violet;
+    height: 60vh;
+    padding: 2rem 0;
+    margin: 0 auto;
+}
+
+.user__photo {
+    width: 80%;
+}
+
+.user__panel--gitHubProfile {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    background-color: var(--color-alfa);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.user__panel--gitHubProfile::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(-60%, -100%) rotate(-45deg);
+    background-color: var(--color-gamma);
+    transition: 0.5s linear;
+}
+
+.user__panel--gitHubProfile:hover::after {
+    transform: translate(60%, 100%) rotate(-45deg);
+}
+
+.gitHubProfile {
+    text-decoration: none;
+    color: var(--color-beta);
+}
+
+
+.user__profile--main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 4;
+    background-color: yellow;
+}
+
+.user__profile--userName {
+    align-self: flex-end;
+    margin: 2rem 4rem;
+    font-size: 3rem;
+}
+
+.user__profile-nav {
+    flex-grow: 1;
+    background-color: brown;
 }

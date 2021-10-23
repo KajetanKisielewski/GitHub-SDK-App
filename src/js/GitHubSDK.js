@@ -1,26 +1,61 @@
 export default class GitHubSDK {
-    constructor(loginData) {
+    constructor(data) {
         this.url = 'https://api.github.com/';
-
-        this.user = loginData.login;
-        this.token = loginData.password;
+        this.user = data.login;
+        this.token = data.password;
     }
 
-    getUserData() {
 
+    async getUserRepositories() {
+
+       const url = `${this.url}users/${this.user}/repos`
+
+       return this._fetch(url)
+       .then( data => {
+           return data;
+       })
+       .catch( err => {
+           throw new Error('repositories has not been downloaded')
+       });
+    }
+
+    async exportUserInformation() {
+
+        const data = {
+            userName: await this.getUserProfileName(),
+            userAvatar: await this.getUserAvatar(),
+            userGitHubSite: await this.getUserProfileUrl()
+        }
+
+        return data;
+    }
+
+    async getUserProfileName() {
+        const data = await this.getUserData();
+        return data.login;
+    }
+
+    async getUserProfileUrl() {
+        const data = await this.getUserData();
+        return data.html_url;
+    }
+
+    async getUserAvatar() {
+        const data = await this.getUserData();
+        return data.avatar_url
+    }
+
+    async getUserData() {
         const url = `${this.url}users/${this.user}`
 
         return this._fetch(url)
             .then( data => {
-                const apiData = data;
-                return apiData;
+                return data;
             })
             .catch( err => {
-                console.log( err ,'data has not been downloaded')
-                // BŁAD 404;
+                throw new Error('data has not been downloaded')
             });
     }
-
 
     _fetch(urlPath) {
 
@@ -41,7 +76,7 @@ export default class GitHubSDK {
             headers: {
                 Accept: 'application/vnd.github.v3+json',
                 Authorization: `token ${this.token}`,
-            }
+            },
         }
 
         return options;
