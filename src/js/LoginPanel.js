@@ -31,4 +31,9 @@ export default class LoginData {
         const loginSection = document.querySelector('.login__panel');
         loginSection.style.display = 'none';
     }
+
+    enableLoginSection() {
+        const loginSection = document.querySelector('.login__panel');
+        loginSection.style.display = 'flex';
+    }
 }
