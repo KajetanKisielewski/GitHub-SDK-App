@@ -11,140 +11,65 @@ describe('GitHubSDK' , () => {
         it('should be able to create instance when login and password was correct', () => {
 
 
-            const data = { login: config.user , password: config.token };
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
-            expect(subject.user).toBe(data.login);
-            expect(subject.token).toBe(data.password);
-        });
-
-        it('shouldn\'t be able to create instance when login is incorrect' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            expect(subject.user).not.toBe('Kajetan');
-            expect(subject.token).toBe(data.password);
-        });
-
-        it('shouldn\'t be able to create instance when  password is incorrect' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            expect(subject.user).toEqual(data.login);
-            expect(subject.token).not.toEqual('abcd');
+            expect(subject.user).toBe(data.user);
+            expect(subject.token).toBe(data.token);
         });
     });
 
     describe('getUserData method' , () => {
 
-        it('should check is method exist' , () => {
-
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            expect(typeof subject.getUserData).toBe('function');
-        });
-
         it('should return object with user data when login data was correct' , () => {
 
-            const data = { login: config.user , password: config.token };
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
-            return subject.getUserData().
+            return subject.getUserData(subject.user).
                 then( data => expect(typeof data).toBe('object') );
         });
 
-        it('should return data has not been downloaded when we can\'t downloaded' , () => {
+        it('the entered login should match with the login from the method' , () => {
 
-            const data = { login: '' , password: '' }
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
-            return expect( subject.getUserData() ).rejects.toEqual(Error('data has not been downloaded'));
+            return subject.getUserData(subject.user)
+                .then( data => expect(data.login).toBe(subject.user) )
         })
     })
 
     describe('getUserAvatar method' , () => {
 
-        it('should check is method exist' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            expect(typeof subject.getUserAvatar).toBe('function');
-        });
-
         it('should return the url to the avatar as a string when the method works fine' , () => {
 
-            const data = { login: config.user , password: config.token };
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
-            return subject.getUserAvatar().
+            return subject.getUserAvatar(subject.user).
                 then( data => expect(typeof data).toBe('string') );
-        });
-
-        it('avatar should Match with url' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            const myAvatarUrlAdress = 'https://avatars.githubusercontent.com/u/80226300?v=4'
-
-            return subject.getUserAvatar().
-                then( data => expect(data).toMatch(myAvatarUrlAdress) );
-        });
-
-
-        it('avatar shouldn\'t match with url' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            const devMentorAvatarUrlAdress = 'https://avatars.githubusercontent.com/u/55095257?v=4'
-
-            return subject.getUserAvatar().
-                then( data => expect(data).not.toMatch(devMentorAvatarUrlAdress) );
         });
     });
 
     describe('getUserProfileUrl method' , () => {
 
-        it('should check is method exist' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            expect(typeof subject.getUserProfileUrl).toBe('function');
-        });
-
         it('should return the url to the user gitHub profile as a string when the method works fine' , () => {
 
-            const data = { login: config.user , password: config.token };
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
-            return subject.getUserProfileUrl().
+            return subject.getUserProfileUrl(subject.user).
                 then( data => expect(typeof data).toBe('string') );
         });
 
-        it('url should Match with url' , () => {
-
-            const data = { login: config.user , password: config.token };
-            const subject = new GitHubSDK(data);
-
-            const myGitHubProfileUrl = 'https://github.com/KajetanKisielewski'
-
-            return subject.getUserProfileUrl().
-                then( data => expect(data).toMatch(myGitHubProfileUrl) );
-        });
     });
 
     describe('getUserName method' , () => {
 
         it('should check is method exist' , () => {
 
-            const data = { login: config.user , password: config.token };
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
             expect(typeof subject.getUserProfileName).toBe('function');
@@ -152,11 +77,68 @@ describe('GitHubSDK' , () => {
 
         it('User gitHub name should match with user login' , () => {
 
-            const data = { login: config.user , password: config.token };
+            const data = { user: config.user , token: config.token };
             const subject = new GitHubSDK(data);
 
-            return subject.getUserProfileName().
-                then( name => expect(name).toBe(data.login) )
+            return subject.getUserProfileName(subject.user)
+                .then( name => expect(name).toBe(data.user) )
+        });
+    });
+
+    describe('getRepositoriesOfAuthenticatedUser method' , () => {
+
+
+        it('should return Array with repo' , () => {
+
+            const data = { user: config.user , token: config.token };
+            const subject = new GitHubSDK(data);
+
+            return subject.getRepositoriesOfAuthenticatedUser()
+                .then( data => expect(typeof data).toBe('object') )
+        });
+
+    });
+
+    describe('getUserRepository method' , () => {
+
+
+        it('should return Array with repo' , () => {
+
+            const data = { user: config.user , token: config.token };
+            const subject = new GitHubSDK(data);
+
+            return subject.getUserRepository(subject.user , 'github-helloworld')
+                .then( data => expect(typeof data).toBe('object') )
+        });
+
+        it('repo name should be equal to provided name' , () => {
+
+            const data = { user: config.user , token: config.token };
+            const subject = new GitHubSDK(data);
+
+            return subject.getUserRepository(subject.user , 'github-helloworld')
+                .then( data => expect(data.name).toBe('github-helloworld') )
+        });
+
+    });
+
+    describe('createRepository method' , () => {
+
+
+        it('should create repo' , async () => {
+
+            const data = { user: config.user , token: config.token };
+            const subject = new GitHubSDK(data);
+
+            const repoDetails = {
+                name: 'helloWorld',
+                description: 'This is your first repo created by that library'
+            }
+
+            const newRepo = await subject.createRepository(repoDetails);
+
+            return subject.getUserRepository(subject.user , repoDetails.name)
+                .then( data => expect(data.name).toBe(repoDetails.name) )
         });
     });
 });

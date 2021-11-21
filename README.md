@@ -1,111 +1,200 @@
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+# GitHub SDK
 
-&nbsp;
+- [Overview](#overview)
+  - [General Information](#general-information)
+  - [Technologies](#technologies)
+  - [Installation and configuration](#installation-and-configuration)
+  - [Usage](#usage)
+  - [Useful resources](#Useful-resources)
+- [Author](#author)
+- [Special thanks](#special-thanks)
 
+## Overview
 
-# JavaScript: Testowanie
+### General Information
+The aim of the project was to create an app similar to Client or SDK application for GitHub API - a library that will make the use of available solutions easier. The assumption of the project was that the library should be developed in accordance with the TDD methodology.
 
-Twoim zadaniem jest stworzenie czegoś na pograniczu Klienta czy [SDK](https://pl.wikipedia.org/wiki/Software_development_kit) dla [GitHub API](https://docs.github.com/en/rest) czyli bibioteki, która utałwi korzystywanie z dostępych rozwiązń.
+### Technologies
 
-Chodzi o to, aby zamiast budować rozbudowane instrukcje typu:
-```
-const secret = 'secret-token';
-const url = `https://api.github.com/repos/devmentor-pl/task-js-basics/collaborators/bogolubow`;
-const promise = fetch(url, {
-    method: 'PUT',
-    credentials: 'same-origin',
-    redirect: 'follow',
-    headers: {
-        Accept: 'application/vnd.github.v3+json',
-        Authorization: `token ${secret}`,
-    },
-    body: JSON.stringify({
-        permission: 'pull'
-    }),
-});
-```
+The project was written in JavaScript, I use REST API in it. The JEST was used for testing.
 
-Móc wykorzystać klasę, którą zbudujesz. Może się ona nazwyać np. `GitHubSDK`.
-Jeśli odpowiednio zaimplementujesz metodę o nazwie `.sendInvitation()` to wystarczy wtedy wywołać:
-```
-const gh = new GitHubSDK('devmentor-pl', 'secret-token');
-gh.sendInvitation('task-js-basics', 'bogolubow');
-```
+### Installation and configuration
 
-Wew. tej funkcji oczywiście będzie kod, który wstawiłem na samym początku jednak wtedy będziesz mógł go wykorzystać w wielu swoich projektach w wygodniejszy sposób. To pozwoli Ci zaoszczędzić sporo czasu i maksymalizować zyski.
+If you want to try a project, download it then use the command below in terminal
 
-> Zwróć uwagę, że w moim `fetch()` jest kilka dodatkowych opcji. Nie jest to związane z samym GitHub API. To opcje dostepne dla `fetch()` więcej możesz przeczytać na [javascript.info](https://javascript.info/fetch-api).
+````
+npm i
+````
 
-GitHub API posiada bardzo duże możliwości zarządzania kontem. To co robisz przy pomocy interfejsu, możesz również zrobić przy pomocy API, np.:
+An additional task will be to create the `config.js` file in the `./src/js` folder. The file should have the following structure:
 
-- pobrać informacje o użytkowniku ([dokumentacja](https://docs.github.com/en/rest/reference/users#get-a-user))
-- pobrać informacje o repozytoriach ([dokumentajca](https://docs.github.com/en/rest/reference/repos#list-public-repositories))
-- porbrać informacje o commitach w repozytorium ([dokumentacja](https://docs.github.com/en/rest/reference/repos#list-commits))
-- pobrać informacje o komentarzach do commitów ([dokumentacja](https://docs.github.com/en/rest/reference/repos#list-commit-comments))
-- poberać informacje o błędach w repozytorium ([dokumentacja](https://docs.github.com/en/rest/reference/issues#list-repository-issues))
-- pobrać informacje o aktywności ([dokumentacja](https://docs.github.com/en/rest/reference/activity#list-repository-events))
+````
+const config = {
+    user: 'yourUserName',
+    token: 'yourToken'
+}
+module.exports = config;
+````
 
 
-> Chciałbym również, abyś zwrócił uwagę, że opis dokumentacji jest oparty o przykłady dla `curl`. To dość powszechne i uważane za uniwersalne rozwiązanie. Dlatego powinieneś umieć przełożyć te przykłady na JavaScript. W tym może Ci pomóc [ta dokumentacja](https://idratherbewriting.com/learnapidoc/docapis_understand_curl.html). 
-
-Możesz również zarządzać swoim kontem jeśli [uwierzytelnisz](https://docs.github.com/en/rest/guides/basics-of-authentication) swoje zapytanie. Najprościej jest to zrobić [generując odpowiedni token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). Następnie w nagłówku przesyłając jego zawartość tak jak w przykładzie na samym początku.
-
-Jak widzisz jest mnóstwo możliwości. Ty powinieneś wybrać minimalną funkcjonalność dla swojej biblioteki. Taką, która umożliwi Ci jś wykorzystać do tworzenia własnego portofio. Portfolio, które samo się aktualizuje czerpiąc dane o projektach ze swojego konta GitHub.
-
-Biblioteka powinna być sworzona zgodnie z metodyką TDD czyli red-green-refaktor. Napierw piszesz testy, które musisz sam skonfigurować. Potem dopiero piszesz implementację. Niech Twoje testy określają jaką funkcjonalność będzie posiadać Twoja biblioteka.
-
-Pamiętaj, że najprościej jest napisać rozwiązanie pod konkretny przypadek, a dopiero potem kombinować z parametrami funkcji. Zgodnie z krokami: 
-
-- RED: napisanie testu
-- GREEN: implementacja konkretnego przypadku
-- REFACTOR: uogólnienie rozwiązania
-
-> **Uwaga!** Ponownie rozmyślnie łamiemy zasadę [FIRST](https://devszczepaniak.pl/testy-jednostkowe-first/). Tym razem w punkcie *Isolated* a nawet *Fast*. Będziemy wykonywać testy na żywym organiźmie tj. metoda do wysyłania zaproszenia będzie faktycznie wysyłać zaproszenie czyli nasze testy będą komunikowac się z API. Ten problem znów jest rozwiązywany przez [Mocki](https://devenv.pl/jest-sposoby-mockowania/), które będziemy omawiać w późniejszym terminie.
-
-Zadaniem dodatkowym (na teraz lub potem) będzie stworzenie przynajmniej szkieletu "samoaktualizującego się" portfolio, które na pewno zostanie docenione przez Twojego potencjalnego pracodawcę.
-
-## Konfiguracja
-
-Aby móc testować zapytania do API przy użyciu `fetch()` musisz mieć zainstalowany np. `node-fetch` ([StackOverflow](https://stackoverflow.com/questions/48433783/referenceerror-fetch-is-not-defined)). Pamiętaj, aby zaimportować i przypisać do odpowiedniego elementu tj.:
-
-```
-import nodeFetch from "node-fetch"; // pobieram paczkę
-global.fetch = nodeFetch; // przypisuję do fetch pobraną paczkę, w Node.js global === window
-```
-
-PS. Pamiętaj, aby [skonfigurować wsparcie dla ES6](https://jestjs.io/docs/getting-started#using-babel).
+If you don't know how to generate a token, see this [link](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 
-Może się okazać, że po odpaleniu testów w terminalu zobaczysz błąd:
-```
-import http from 'http';
-^^^^^^
+## Usage
 
-SyntaxError: Cannot use import statement outside a module
-import nodeFetch from "node-fetch"; 
-```
+This library provides access to the following activities:
 
-To dlatego, że domyślnie `babel-jest` nie transpiluje plików wewnątrz katalogu `node_modules`. My chcemy to zmienić dlatego w pliku `package.json` dodajemy klucz `jest` z odpowiednią pozycją:
+### Retrieving user information:
 
-```
-  "scripts": {
-    "test": "jest",
-    "test-watch": "jest --watchAll",
-    "start": "webpack serve --mode development --open",
-    "build": "webpack --mode production"
-  },
-  "jest": {
-    "transformIgnorePatterns": []
-  },
-``` 
+#### getUserData()
 
-Teraz już wszystko powinno działać jak należy. 
+Returns information about the user whose name was passed in the function parameter.
+
+````
+const userData = gitHub.getUserData('KajetanKisielewski');
+````
+
+An example of using the data returned by this method:
+
+##### getUserAvatar()
+
+Returns as a string the url to the avatar of the user whose name was passed in the function parameter.
+
+````
+const userAvatar = gitHub.getUserAvatar('KajetanKisielewski);
+````
+
+An example of how this method is built using the getUserData() method.
+
+````
+async getUserAvatar(userName) {
+        const data = await this.getUserData(userName);
+        return data.avatar_url;
+    }
+````
+
+##### getUserProfileUrl()
+
+Returns as a string the url to the gitHub profile of the user whose name was passed in the function parameter.
+
+````
+const url = gitHub.getUserProfileUrl();
+````
 
 
-&nbsp;
+### Retrieving information about repositories and creating new ones:
 
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+
+#### getUserRepositories()
+
+Returns a list of public repositories for the user whose name was passed in the function parameter.
+
+````
+const repoList = gitHub.getUserRepositories('KajetanKisielewski');
+````
+
+#### getUserRepository()
+
+Returns the public repository of the user whose name was passed in the function parameter. As the second parameter, we must provide the name of this repository.
+
+
+````
+const repo = gitHub.getUserRepository('KajetanKisielewski' , 'Resposive-page--project')
+````
+
+#### getRepositoryContent()
+
+Returns the contents of a file or directory in a repository. It requires three parameters, the first is the username, the second is the repository name, the third is the path to the file we want to download.
+
+````
+const content = gitHub.getRepositoryContent('KajetanKisielewski' , 'Resposive-page--project' , 'README.md')
+````
+
+#### getRepositoriesOfAuthenticatedUser()
+
+Returns all repositories of the authenticated user.
+
+````
+const repoList = gitHub.getRepositoriesOfAuthenticatedUser();
+````
+
+Method:
+
+````
+    async getRepositoriesOfAuthenticatedUser() {
+        const options = this._fetchGetOptions();
+        const url = `${this.url}user/repos?affiliation=owner&per_page=100&`
+
+        return this._fetch(url , options, 'user repositories has not been downloaded');
+    }
+````
+
+Additional options that I used in the method:
+
+ - affiliation = owner  -> Repositories that are owned by the authenticated user
+ - per_page = 100  -> Results per page (max: 100 , default: 30)
+
+
+For more options please refer to the [documentation](https://docs.github.com/en/rest/reference/repos#list-repositories-for-the-authenticated-user)
+
+
+#### createRepository()
+
+This method create a new repository at your github. As a parameter you need to pass the data needed to create the repository(name is required). Example:
+
+````
+const data = {
+        name: 'helloWorld',
+        description: 'This is your first repo created by that library'
+}
+
+gitHub.createRepository(data)
+````
+
+For more options please refer to the [documentation](https://docs.github.com/en/rest/reference/repos#create-a-repository-for-the-authenticated-user)
+
+
+
+### Retrieve information about commits in the repository and comments to them and about issue in these repositories.
+
+
+#### getCommitsListFromRepo()
+
+Returns commits from the repository for the user whose name was passed in the function as a first parameter. Second parameter is name of repository.
+
+
+````
+const commitsList = gitHub.getCommitsListFromRepo('KajetanKisielewski' , 'Resposive-page--project')
+````
+
+#### getCommentsFromCommit()
+
+Returns comments from the selected commit. This method takes three parameters, the first is the username, the second is the name of the repository, the third is the commit index from which we want to retrieve comments.
+
+````
+const commentsList = gitHub.getCommentsFromCommit('KajetanKisielewski' , 'task-js-api-and-fetch' , 2);
+````
+
+
+#### getIssueFromRepo();
+
+Returns issue rom the repository for the user whose name was passed in the function as a first parameter. Second parameter is name of repository.
+
+````
+const issueList = gitHub.getIssueFromRepo('KajetanKisielewski' , 'Resposive-page--project');
+````
+
+### Useful resources
+
+[GitHub API Docs](https://docs.github.com/en/rest)
+
+
+## Author
+
+* Github - [KajetanKisielewski](https://github.com/KajetanKisielewski),
+* Linkedin - [KajetanKisielewski](https://www.linkedin.com/in/kajetan-kisielewski-157b60208/).
+
+
+## Special thanks
+
+Thanks to my [Mentor - devmentor.pl](https://devmentor.pl/) - for providing me with this task and for code review.
