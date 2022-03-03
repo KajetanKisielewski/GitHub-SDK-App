@@ -1,30 +1,40 @@
 # GitHub SDK
 
-- [Overview](#overview)
-  - [General Information](#general-information)
-  - [Technologies](#technologies)
-  - [Installation and configuration](#installation-and-configuration)
-  - [Usage](#usage)
-  - [Useful resources](#Useful-resources)
-- [Author](#author)
-- [Special thanks](#special-thanks)
+- [Overview](#overview-🔍)
+- [Built with](#-built-with-🔧)
+- [Installation and configuration](#installation-and-configuration-💾)
+- [Usage](#usage-💡)
+- [Useful resources](#Useful-resources-🔗)
+- [Author](#author-🔥)
+- [Special thanks](#special-thanks-🙏🏻)
 
-## Overview
+## Overview 🔍
+&nbsp;
 
-### General Information
-The aim of the project was to create an app similar to Client or SDK application for GitHub API - a library that will make the use of available solutions easier. The assumption of the project was that the library should be developed in accordance with the TDD methodology.
+![](./src/img/Animation.gif)
 
-### Technologies
 
-The project was written in JavaScript, I use REST API in it. The JEST was used for testing.
+The aim of the project was to create an app similar to Client or [SDK application](https://pl.wikipedia.org/wiki/Software_development_kit) for GitHub API - a library that will make the use of available solutions easier. The assumption of the project was that the library should be developed in accordance with the TDD methodology.
 
-### Installation and configuration
+&nbsp;
+
+## Built with 🔧
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+![Webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=Webpack&logoColor=white)
+![Babel](https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=white)
+
+&nbsp;
+## Installation and configuration 💾
 
 If you want to try a project, download it then use the command below in terminal
 
 ````
 npm i
 ````
+&nbsp;
 
 An additional task will be to create the `config.js` file in the `./src/js` folder. The file should have the following structure:
 
@@ -39,8 +49,23 @@ module.exports = config;
 
 If you don't know how to generate a token, see this [link](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
+&nbsp;
 
-## Usage
+To start the tests use command below:
+
+````
+npm run test
+````
+&nbsp;
+
+To start the development mode use command below:
+
+````
+npm start
+````
+&nbsp;
+
+## Usage 💡
 
 This library provides access to the following activities:
 
@@ -55,6 +80,8 @@ const userData = gitHub.getUserData('KajetanKisielewski');
 ````
 
 An example of using the data returned by this method:
+
+&nbsp;
 
 ##### getUserAvatar()
 
@@ -73,6 +100,8 @@ async getUserAvatar(userName) {
     }
 ````
 
+&nbsp;
+
 ##### getUserProfileUrl()
 
 Returns as a string the url to the gitHub profile of the user whose name was passed in the function parameter.
@@ -82,6 +111,7 @@ const url = gitHub.getUserProfileUrl();
 ````
 
 
+&nbsp;
 ### Retrieving information about repositories and creating new ones:
 
 
@@ -93,6 +123,7 @@ Returns a list of public repositories for the user whose name was passed in the 
 const repoList = gitHub.getUserRepositories('KajetanKisielewski');
 ````
 
+&nbsp;
 #### getUserRepository()
 
 Returns the public repository of the user whose name was passed in the function parameter. As the second parameter, we must provide the name of this repository.
@@ -102,6 +133,7 @@ Returns the public repository of the user whose name was passed in the function 
 const repo = gitHub.getUserRepository('KajetanKisielewski' , 'Resposive-page--project')
 ````
 
+&nbsp;
 #### getRepositoryContent()
 
 Returns the contents of a file or directory in a repository. It requires three parameters, the first is the username, the second is the repository name, the third is the path to the file we want to download.
@@ -110,6 +142,7 @@ Returns the contents of a file or directory in a repository. It requires three p
 const content = gitHub.getRepositoryContent('KajetanKisielewski' , 'Resposive-page--project' , 'README.md')
 ````
 
+&nbsp;
 #### getRepositoriesOfAuthenticatedUser()
 
 Returns all repositories of the authenticated user.
@@ -137,7 +170,7 @@ Additional options that I used in the method:
 
 For more options please refer to the [documentation](https://docs.github.com/en/rest/reference/repos#list-repositories-for-the-authenticated-user)
 
-
+&nbsp;
 #### createRepository()
 
 This method create a new repository at your github. As a parameter you need to pass the data needed to create the repository(name is required). Example:
@@ -154,7 +187,7 @@ gitHub.createRepository(data)
 For more options please refer to the [documentation](https://docs.github.com/en/rest/reference/repos#create-a-repository-for-the-authenticated-user)
 
 
-
+&nbsp;
 ### Retrieve information about commits in the repository and comments to them and about issue in these repositories.
 
 
@@ -167,6 +200,7 @@ Returns commits from the repository for the user whose name was passed in the fu
 const commitsList = gitHub.getCommitsListFromRepo('KajetanKisielewski' , 'Resposive-page--project')
 ````
 
+&nbsp;
 #### getCommentsFromCommit()
 
 Returns comments from the selected commit. This method takes three parameters, the first is the username, the second is the name of the repository, the third is the commit index from which we want to retrieve comments.
@@ -175,7 +209,7 @@ Returns comments from the selected commit. This method takes three parameters, t
 const commentsList = gitHub.getCommentsFromCommit('KajetanKisielewski' , 'task-js-api-and-fetch' , 2);
 ````
 
-
+&nbsp;
 #### getIssueFromRepo();
 
 Returns issue rom the repository for the user whose name was passed in the function as a first parameter. Second parameter is name of repository.
@@ -183,18 +217,18 @@ Returns issue rom the repository for the user whose name was passed in the funct
 ````
 const issueList = gitHub.getIssueFromRepo('KajetanKisielewski' , 'Resposive-page--project');
 ````
-
-### Useful resources
+&nbsp;
+## Useful resources 🔗
 
 [GitHub API Docs](https://docs.github.com/en/rest)
 
 
-## Author
+## Author 🔥
 
 * Github - [KajetanKisielewski](https://github.com/KajetanKisielewski),
 * Linkedin - [KajetanKisielewski](https://www.linkedin.com/in/kajetan-kisielewski-157b60208/).
 
 
-## Special thanks
+## Special thanks 🙏🏻
 
 Thanks to my [Mentor - devmentor.pl](https://devmentor.pl/) - for providing me with this task and for code review.
