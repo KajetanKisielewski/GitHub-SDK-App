@@ -1,19 +1,8 @@
 # GitHub SDK
 
-- [Overview](#overview-🔍)
-- [Built with](#-built-with-🔧)
-- [Installation and configuration](#installation-and-configuration-💾)
-- [Usage](#usage-💡)
-- [Useful resources](#Useful-resources-🔗)
-- [Author](#author-🔥)
-- [Special thanks](#special-thanks-🙏🏻)
-
-## Overview 🔍
-&nbsp;
-
 ![](./src/img/Animation.gif)
 
-
+## Overview 🔍
 The aim of the project was to create an app similar to Client or [SDK application](https://pl.wikipedia.org/wiki/Software_development_kit) for GitHub API - a library that will make the use of available solutions easier. The assumption of the project was that the library should be developed in accordance with the TDD methodology.
 
 &nbsp;
@@ -27,7 +16,7 @@ The aim of the project was to create an app similar to Client or [SDK applicatio
 ![Babel](https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=white)
 
 &nbsp;
-## Installation and configuration 💾
+## Installation and configuration💾
 
 If you want to try a project, download it then use the command below in terminal
 
@@ -68,6 +57,7 @@ npm start
 ## Usage 💡
 
 This library provides access to the following activities:
+
 
 ### Retrieving user information:
 
@@ -200,7 +190,7 @@ Returns commits from the repository for the user whose name was passed in the fu
 const commitsList = gitHub.getCommitsListFromRepo('KajetanKisielewski' , 'Resposive-page--project')
 ````
 
-&nbsp;
+
 #### getCommentsFromCommit()
 
 Returns comments from the selected commit. This method takes three parameters, the first is the username, the second is the name of the repository, the third is the commit index from which we want to retrieve comments.
@@ -209,7 +199,7 @@ Returns comments from the selected commit. This method takes three parameters, t
 const commentsList = gitHub.getCommentsFromCommit('KajetanKisielewski' , 'task-js-api-and-fetch' , 2);
 ````
 
-&nbsp;
+
 #### getIssueFromRepo();
 
 Returns issue rom the repository for the user whose name was passed in the function as a first parameter. Second parameter is name of repository.
